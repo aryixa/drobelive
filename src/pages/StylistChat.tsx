@@ -62,7 +62,7 @@ export const StylistChat = () => {
       };
 
       setMessages(prev => [...prev, aiMessage]);
-    } catch (error) {
+    } catch {
       toast.error('Failed to get styling advice', { duration: 2000 });
     } finally {
       setIsLoading(false);

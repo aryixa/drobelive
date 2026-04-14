@@ -16,24 +16,7 @@ export const Auth = () => {
   const [resetEmail, setResetEmail] = useState('');
   const navigate = useNavigate();
 
-  const checkEmailExists = async (email: string): Promise<boolean> => {
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password: 'dummy-password-for-check',
-      });
-      
-      // If we get "Invalid login credentials" error, it means email exists but password is wrong
-      if (error && error.message.includes('Invalid login credentials')) {
-        return true;
-      }
-      
-      return false;
-    } catch {
-      return false;
-    }
-  };
-
+  
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -68,20 +51,22 @@ export const Auth = () => {
         toast.success('Successfully logged in', { duration: 2000 });
         navigate('/');
       } else {
-        // Check if email already exists
-        const emailExists = await checkEmailExists(email);
-        if (emailExists) {
-          toast.error('An account with this email already exists. Please sign in instead.', { duration: 2000 });
-          setIsLogin(true);
-          return;
-        }
-
         const { error } = await supabase.auth.signUp({
           email,
           password,
         });
-        if (error) throw error;
-        toast.success('Check your email for confirmation', { duration: 2000 });
+        
+        if (error) {
+          if (error.message.toLowerCase().includes('already')) {
+            toast.error('An account with this email already exists. Please sign in instead.', { duration: 2000 });
+            setIsLogin(true);
+          } else {
+            toast.error(error.message, { duration: 2000 });
+          }
+        } else {
+          toast.success('Check your email for confirmation', { duration: 2000 });
+          navigate('/auth');
+        }
       }
     } catch (error: any) {
       if (error.message.includes('User already registered')) {

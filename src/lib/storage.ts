@@ -27,8 +27,7 @@ export const validateFile = (file: File) => {
 
 export const uploadWardrobeImage = async (
   userId: string,
-  file: File,
-  onProgress?: (progress: number) => void
+  file: File
 ) => {
   try {
     validateFile(file);
@@ -36,7 +35,7 @@ export const uploadWardrobeImage = async (
 
     // Supabase JS SDK doesn't natively support progress in the default upload method,
     // but we can simulate or use standard XHR if needed. For now, we'll use a simple upload.
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('wardrobe')
       .upload(path, file, {
         cacheControl: '3600',

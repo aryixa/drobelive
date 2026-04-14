@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_BFMBsh7S8hgwKQhWn4MlFiFK397E",
+  "orgId": "team_PoPInHXZ4m8o65bS5f7mttyl",
+  "projectName": "drobelive",
+  "settings": {
+    "createdAt": 1776066946239,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

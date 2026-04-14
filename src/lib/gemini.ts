@@ -39,7 +39,7 @@ Responses must be concise (2-3 lines maximum).`;
     
     return completion.choices[0]?.message?.content || 'Sorry, I could not generate styling advice.';
   } catch (error) {
-    console.error('Groq API error:', error);
+    console.error('API error:', error);
     throw new Error('Failed to get styling advice');
   }
 };

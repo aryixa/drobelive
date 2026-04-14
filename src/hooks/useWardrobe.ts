@@ -59,10 +59,10 @@ export const useWardrobe = () => {
 
     try {
       // 1. Delete from storage first
-      const storageDeleted = await deleteWardrobeImage(imagePath);
+      await deleteWardrobeImage(imagePath);
       
       // We proceed even if storage delete fails (maybe file already gone),
-      // but if it failed due to permissions/network, storageDeleted might be false.
+      // but if it failed due to permissions/network, we should handle appropriately.
       // Based on plan: If storage delete fails due to network, halt. 
       // Our lib/storage.ts returns false on error.
 
